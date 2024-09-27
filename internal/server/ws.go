@@ -50,20 +50,18 @@ func (s *Server) UpgradeToWS(c *gin.Context) {
 
 	fmt.Println("WebSocket connected for user:", tokenData.UserID)
 
-	go s.handleWebSocket(conn, tokenData.UserID, roomID)
+	s.handleWebSocket(conn, tokenData.UserID, roomID)
 }
 
 func (s *Server) handleWebSocket(conn *websocket.Conn, userID string, roomID string) {
 	defer conn.Close()
 
 	for {
-		fmt.Println(conn)
 		messageType, message, err := conn.ReadMessage()
 		if err != nil {
 			fmt.Println("Error reading message:", err)
 			break
 		}
-
 		var wsMessage WebsocketMessage
 		if err = json.Unmarshal(message, &wsMessage); err != nil {
 			fmt.Println("Error unmarshalling message:", err)

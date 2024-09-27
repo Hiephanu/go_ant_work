@@ -10,6 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func (s *Server) GetAllRoom(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"messgae": "sucess", "data": s.roomTracker.Rooms})
+}
 func (s *Server) CreateRoomHandler(c *gin.Context) {
 	var room structs.CreateRoomRequest
 	err := json.NewDecoder(c.Request.Body).Decode(&room)

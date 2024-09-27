@@ -79,15 +79,18 @@ func (rt *RoomTracker) AddConnToUser(userID string, roomID string, conn *websock
 
 	for _, presence := range room.Presences {
 		if presence.UserID == userID {
+			fmt.Println("add to userId")
 			presence.Conn = conn
 			return nil
 		}
 	}
 
+	fmt.Println("Test add conn ", roomID, conn)
 	return fmt.Errorf("Presence not found")
 }
 
 func (rt *RoomTracker) SendToRoom(roomId string, envelop Envelop) {
+	fmt.Println("Send to other socket")
 	for _, p := range rt.Rooms[roomId].Presences {
 		if p.Conn != nil {
 			msg, err := json.Marshal(envelop)

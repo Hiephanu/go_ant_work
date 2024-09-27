@@ -34,7 +34,8 @@ func (s *Server) RegisterRoutes() http.Handler {
 		api.PUT("/users/:id", s.UpdateUserHandler)
 		api.POST("/rooms/create", s.CreateRoomHandler)
 		api.POST("/rooms/join", s.JoinRoomHandler)
-		api.POST("/rooms/left", s.JoinRoomHandler)
+		api.POST("/rooms/left", s.LeafRoomHandler)
+		api.GET("/rooms/all", s.GetAllRoom)
 	}
 
 	return r
